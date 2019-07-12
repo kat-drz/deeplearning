@@ -5,7 +5,7 @@ bases = "ATCG"
 base_to_integer = dict((i, c) for c, i in enumerate(bases))
 print(base_to_integer)
 
-#input sequence to be one hot encoded
+#example input sequence to be one hot encoded
 sequence = "AGATATAC"
 
 #encoding input sequence as integers
