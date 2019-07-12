@@ -1,2 +1,2 @@
 # one-hot-encoder
-One hot encoder for ATCG
+Program which converts an input sequence of bases to a one hot encoded format. 
