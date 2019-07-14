@@ -17,7 +17,7 @@ onehot_encoded = list()
 for value in integer_encoded:
     base = [0 for x in range(len(bases))]
     base[value] = 1
-    onehot_encoded.append(base)
+    onehot_encoded.extend(base)
     
 print(onehot_encoded)
 
