@@ -30,7 +30,3 @@ else:
         base[value] = 1
         onehot_encoded.extend(base)
     print(onehot_encoded)
-   
-
-
-      
