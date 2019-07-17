@@ -9,6 +9,7 @@ import re
 test = re.sub('1|2|3|4|5|6|7|8|9|0|>|s|e|q|S|E|Q|:', "", holder)
 newone = test.split("\n")
 print(newone)
+newone = [x for x in newone if x != []]
 
 #list of undesirable letters in the input sequence
 bad_list = ["N", "a", "t", "g", "c"]
