@@ -1,4 +1,7 @@
-path = 'dnasequence.txt'
+import sys
+import os
+
+path = sys.argv[1]
 file = open(path, 'r')
 
 holder = file.read()
