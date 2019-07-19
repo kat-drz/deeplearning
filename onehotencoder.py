@@ -4,9 +4,11 @@ file = open(path, 'r')
 holder = file.read()
 print(holder)
 
+holder2 = holder.upper()
+
 #remove all sequence numbers from all lines
 import re
-test = re.sub('1|2|3|4|5|6|7|8|9|0|>|s|e|q|S|E|Q|:', "", holder)
+test = re.sub('1|2|3|4|5|6|7|8|9|0|>|s|e|q|S|E|Q|:', "", holder2)
 newone = test.split("\n")
 print(newone)
 newone = [x for x in newone if x]
