@@ -11,24 +11,22 @@ holder2 = holder.upper()
 
 #remove all sequence numbers from all lines
 import re
-test = re.sub('1|2|3|4|5|6|7|8|9|0|>|s|e|q|S|E|Q|:', "", holder2)
+test = re.sub('1|2|3|4|5|6|7|8|9|0|>|SEQ|CHR|-|:', "", holder2)
 newone = test.split("\n")
 print(newone)
 newone = [x for x in newone if x]
 
-#list of undesirable letters in the input sequence
-bad_list = ["N", "a", "t", "g", "c"]
-
-#checking for presence of any of the components in bad_list in sequence
-result = [component for component in bad_list if(component in newone)]
+#checking for presence of N in sequence
+lettern = "N"
+result = [component for component in lettern if(component in newone)]
     
-#if undesirable letters are present in sequence, an error message is displayed
+#if N is present in sequence, an error message is displayed
 
 for line in newone:
 
     if (bool(result)) == True:
-        print("The input sequence is invalid.")
-        print("Please check for lowercase letters and/or 'N'.")
+        print("The input sequence is invalid, N is present.")
+        sys.exit()
   
 #if sequence is in the correct format, proceed with one hot encoding
 
