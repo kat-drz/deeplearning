@@ -1,11 +1,8 @@
 import sys
-import os
 
-path = sys.argv[1]
-file = open(path, 'r')
-
-holder = file.read()
-print(holder)
+#input sequence is linearised
+with open(sys.argv[1]) as input_file:
+    holder = ''.join(input_file.read().splitlines())
 
 holder2 = holder.upper()
 
