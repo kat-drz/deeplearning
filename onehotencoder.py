@@ -1,16 +1,17 @@
 import sys
 
-#input sequence is linearised
-with open(sys.argv[1]) as input_file:
-    holder = ''.join(input_file.read().splitlines())
+path = sys.argv[1]
+file = open(path, 'r')
 
-holder2 = holder.upper()
+holder = file.read()
+holder1 = str(holder)
+holder2 = holder1.replace("\n","")
+uppercase = holder2.upper()
 
 #remove all sequence numbers from all lines
 import re
-test = re.sub('1|2|3|4|5|6|7|8|9|0|>|SEQ|CHR|-|:', "", holder2)
-newone = test.split("\n")
-print(newone)
+test = re.sub('1|\t|2|3|4|5|6|7|8|9|0|SEQ|CHR|-|:', "", uppercase)
+newone = test.split(">")
 newone = [x for x in newone if x]
 
 #checking for presence of N in sequence
