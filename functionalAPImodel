@@ -1,0 +1,112 @@
+from keras.layers import Conv2D, LeakyReLu, BatchNormalization,
+MaxPooling2D, Dense, Dropout, Input, Concatenate
+from keras.models import Model
+from keras.activations import softmax, ReLU
+
+# PROMOTER MODEL
+
+inputp = Input(shape=(,,))
+# first relu
+conv1p = Convolution2D(units, (,), activation='relu')(inputp)
+# batch normalisation
+batnorm1p = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+                              center=True, scale=True,
+                              beta_initializer='zeros',
+                              gamma_initializer='ones',
+                              moving_mean_initializer='zeros',
+                              moving_variance_initializer='ones')(conv1p)
+# maxpooling to put activations together
+maxpool1p = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
+                         data_format=None)(batnorm1p)
+# second relu
+conv2p = Convolution2D(units, (,), activation='relu')(maxpool1p)
+# batch normalisation
+batnorm2p = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+                              center=True, scale=True,
+                              beta_initializer='zeros',
+                              gamma_initializer='ones',
+                              moving_mean_initializer='zeros',
+                              moving_variance_initializer='ones')(conv2p)
+# third relu
+conv3p = Convolution2D(units, (,), activation='relu')(batnorm2p)
+# batch normalisation
+batnorm3p = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+                              center=True, scale=True,
+                              beta_initializer='zeros',
+                              gamma_initializer='ones',
+                              moving_mean_initializer='zeros',
+                              moving_variance_initializer='ones')(conv3p)
+# maxpooling to put activations together
+maxpool2p = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
+                         data_format=None)(batnorm3p)
+# final dense layer - could also just take result from maxpool to the next step depending on other model
+densep = Dense(units, activation='relu')(maxpool2p)
+# putting together in a Model layer
+modelp = Model(inputp, densep)
+
+
+# ENHANCER MODEL
+
+inpute = Input(shape=(,,))
+# first relu
+conv1e = Convolution2D(units, (,), activation='relu')(inpute)
+# batch normalisation
+batnorm1e = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+                              center=True, scale=True,
+                              beta_initializer='zeros',
+                              gamma_initializer='ones',
+                              moving_mean_initializer='zeros',
+                              moving_variance_initializer='ones')(conv1p)
+# maxpooling to put activations together
+maxpool1e = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
+                         data_format=None)(batnorm1e)
+# second relu
+conv2e = Convolution2D(units, (,), activation='relu')(maxpool1e)
+# batch normalisation
+batnorm2e = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+                              center=True, scale=True,
+                              beta_initializer='zeros',
+                              gamma_initializer='ones',
+                              moving_mean_initializer='zeros',
+                              moving_variance_initializer='ones')(conv2e)
+# third relu
+conv3e = Convolution2D(units, (,), activation='relu')(batnorm2e)
+# batch normalisation
+batnorm3e = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+                              center=True, scale=True,
+                              beta_initializer='zeros',
+                              gamma_initializer='ones',
+                              moving_mean_initializer='zeros',
+                              moving_variance_initializer='ones')(conv3e)
+# maxpooling to put activations together
+maxpool2e = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
+                         data_format=None)(batnorm3e)
+# final dense layer - could also just take result from maxpool to the next step depending on other model
+densee = Dense(units, activation='relu')(maxpool2e)
+# putting together in a Model layer (must have same shape output as modelp)
+modele = Model(inpute, densee)
+
+
+# CONCATENATED MODEL
+
+# concatenating the two models 
+concat = Concatenate([modelp, modele], axis=-1)
+denseconcat = Dense(units, activation='relu')(concat)
+# dropout - 20% weights removed before softmax is applied
+dropout = Dropout(0.2, noise_shape=None, seed=None)(denseconcat)
+# applying softmax to give 'probability' they interact
+softmax = Dense(units, activation='softmax')(dropout)
+
+finalmodel = Model(inputs = [], outputs)
+
+# COMPILATION OF FINALMODEL
+finalmodel.compile(loss='categorical_crossentropy', optimizer='Adam',
+                      metrics=['accuracy'])
+
+# 
+finalmodel.fit([X_train_one, X_train_two], Y_train,
+          batch_size=32, nb_epoch=10, verbose=1)
+
+# EVALUATION - something like this
+_, accuracy = finalmodel.evaluate(X, y)
+print("Accuracy: %.2f" % (accuracy*100))
