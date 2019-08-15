@@ -4,8 +4,7 @@
 # (at the end, not before concatenation).
 
 
-from keras.layers import Conv2D, LeakyReLu, BatchNormalization,
-MaxPooling2D, Dense, Dropout, Input, Concatenate, Flatten
+from keras.layers import Conv2D, BatchNormalization,MaxPooling2D, Dense, Dropout, Input, Concatenate, Flatten
 from keras.models import Model
 from keras.activations import softmax, ReLU
 
@@ -97,7 +96,7 @@ concat = Concatenate([outputp, outpute], axis=-1)
 denseconcat = Dense(units, activation='relu')(concat)
 # dropout - 20% weights removed before softmax is applied
 dropout = Dropout(0.2, noise_shape=None, seed=None)(denseconcat)
-# applying softmax to give 'probability' they interact
+# applying softmax
 softmax = Dense(units, activation='softmax')(dropout)
 
 # this instantiates the merged model - concat is where it is first put together,
@@ -113,7 +112,7 @@ finalmodel.fit(x="training data", y="target data", batch_size=32, epochs=10,
                verbose=1, validation_split=0.15, validation_freq=1,
                initial_epoch=0)
 
-# EVALUATION - keeping batch size same as in .fit???
+# EVALUATION - keeping batch size same as in .fit
 accuracy = finalmodel.evaluate(X="test data", y="target data", batch_size=32, verbose=1, steps=)
 print("Accuracy: %.2f" % (accuracy*100))
 
