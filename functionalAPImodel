@@ -97,7 +97,9 @@ dropout = Dropout(0.2, noise_shape=None, seed=None)(denseconcat)
 # applying softmax to give 'probability' they interact
 softmax = Dense(units, activation='softmax')(dropout)
 
-finalmodel = Model(inputs = [], outputs)
+# this instantiates the merged model - concat is where it is first put together,
+# and softmax will be the output 
+finalmodel = Model(concat, softmax)
 
 # COMPILATION OF FINALMODEL
 finalmodel.compile(loss='categorical_crossentropy', optimizer='Adam',
@@ -105,8 +107,8 @@ finalmodel.compile(loss='categorical_crossentropy', optimizer='Adam',
 
 # 
 finalmodel.fit([X_train_one, X_train_two], Y_train,
-          batch_size=32, nb_epoch=10, verbose=1)
+          batch_size=32, epochs=10, verbose=1)
 
-# EVALUATION - something like this
-_, accuracy = finalmodel.evaluate(X, y)
+# EVALUATION - keeping batch size same as in .fit???
+accuracy = finalmodel.evaluate(X=_, y=_, batch_size=32, verbose=1, steps=)
 print("Accuracy: %.2f" % (accuracy*100))
