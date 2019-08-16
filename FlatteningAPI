@@ -26,7 +26,7 @@ maxpool1p = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
 # second relu
 conv2p = Convolution2D(units, (,), activation='relu')(maxpool1p)
 # batch normalisation
-batnorm2p = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+batnorm2p = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
