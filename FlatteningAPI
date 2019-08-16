@@ -14,7 +14,7 @@ inputp = Input(shape=(,,))
 # first relu
 conv1p = Convolution2D(units, (,), activation='relu')(inputp)
 # batch normalisation
-batnorm1p = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+batnorm1p = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
@@ -35,7 +35,7 @@ batnorm2p = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
 # third relu
 conv3p = Convolution2D(units, (,), activation='relu')(batnorm2p)
 # batch normalisation
-batnorm3p = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+batnorm3p = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
@@ -55,7 +55,7 @@ inpute = Input(shape=(,,))
 # first relu
 conv1e = Convolution2D(units, (,), activation='relu')(inpute)
 # batch normalisation
-batnorm1e = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+batnorm1e = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
@@ -67,7 +67,7 @@ maxpool1e = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
 # second relu
 conv2e = Convolution2D(units, (,), activation='relu')(maxpool1e)
 # batch normalisation
-batnorm2e = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+batnorm2e = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
@@ -76,7 +76,7 @@ batnorm2e = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
 # third relu
 conv3e = Convolution2D(units, (,), activation='relu')(batnorm2e)
 # batch normalisation
-batnorm3e = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
+batnorm3e = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
