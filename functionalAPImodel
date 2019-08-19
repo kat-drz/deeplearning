@@ -113,6 +113,3 @@ finalmodel.fit(x="training data", y="target data", batch_size=32, epochs=10,
 # EVALUATION - keeping batch size same as in .fit???
 accuracy = finalmodel.evaluate(X="test data", y="target data", batch_size=32, verbose=1, steps=)
 print("Accuracy: %.2f" % (accuracy*100))
-
-# PREDICT LAYER NEEDED?
-
