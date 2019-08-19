@@ -3,11 +3,6 @@
 # and there is flattening. The model is instantiated only once
 # (at the end, not before concatenation).
 
-#inspired by https://stackoverflow.com/questions/54959929/
-# the difference is that only the output layers are concatenated,
-# and there is flattening. The model is instantiated only once
-# (at the end, not before concatenation).
-
 
 from keras.layers import Conv2D, LeakyReLu, BatchNormalization,
 MaxPooling2D, Dense, Dropout, Input, Concatenate
