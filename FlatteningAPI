@@ -3,100 +3,106 @@
 # and there is flattening. The model is instantiated only once
 # (at the end, not before concatenation).
 
+#inspired by https://stackoverflow.com/questions/54959929/
+# the difference is that only the output layers are concatenated,
+# and there is flattening. The model is instantiated only once
+# (at the end, not before concatenation).
 
-from keras.layers import Conv2D, BatchNormalization,MaxPooling2D, Dense, Dropout, Input, Concatenate, Flatten
+
+from keras.layers import Conv2D, LeakyReLu, BatchNormalization,
+MaxPooling2D, Dense, Dropout, Input, Concatenate
 from keras.models import Model
 from keras.activations import softmax, ReLU
 
 # PROMOTER MODEL
 
-inputp = Input(shape=(,,))
+inputProm = Input(shape=(,,))
 # first relu
-conv1p = Convolution2D(units, (,), activation='relu')(inputp)
+conv1Prom = Convolution2D(units, (,), activation='relu')(inputProm)
 # batch normalisation
-batnorm1p = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
+batnorm1Prom = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
                               moving_mean_initializer='zeros',
-                              moving_variance_initializer='ones')(conv1p)
+                              moving_variance_initializer='ones')(conv1Prom)
 # first maxpooling
-maxpool1p = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
-                         data_format=None)(batnorm1p)
+maxpool1Prom = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
+                         data_format=None)(batnorm1Prom)
 # second relu
-conv2p = Convolution2D(units, (,), activation='relu')(maxpool1p)
+conv2Prom = Convolution2D(units, (,), activation='relu')(maxpool1Prom)
 # batch normalisation
-batnorm2p = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
+batnorm2Prom = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
                               moving_mean_initializer='zeros',
-                              moving_variance_initializer='ones')(conv2p)
+                              moving_variance_initializer='ones')(conv2Prom)
 # third relu
-conv3p = Convolution2D(units, (,), activation='relu')(batnorm2p)
+conv3Prom = Convolution2D(units, (,), activation='relu')(batnorm2Prom)
 # batch normalisation
-batnorm3p = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
+batnorm3Prom = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
                               moving_mean_initializer='zeros',
-                              moving_variance_initializer='ones')(conv3p)
+                              moving_variance_initializer='ones')(conv3Prom)
 # second maxpooling
-maxpool2p = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
-                         data_format=None)(batnorm3p)
+maxpool2Prom = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
+                         data_format=None)(batnorm3Prom)
 # flattening the output (converting to one-dimensional after the Conv2D)
-outputp = Flatten()(maxpool2p)
+outputProm = Flatten()(maxpool2Prom)
 
 
 
 # ENHANCER MODEL
 
-inpute = Input(shape=(,,))
+inputEnh = Input(shape=(,,))
 # first relu
-conv1e = Convolution2D(units, (,), activation='relu')(inpute)
+conv1Enh = Convolution2D(units, (,), activation='relu')(inputEnh)
 # batch normalisation
-batnorm1e = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
+batnorm1Enh = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
                               moving_mean_initializer='zeros',
-                              moving_variance_initializer='ones')(conv1p)
+                              moving_variance_initializer='ones')(conv1Enh)
 # first maxpooling
-maxpool1e = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
-                         data_format=None)(batnorm1e)
+maxpool1Enh = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
+                         data_format=None)(batnorm1Enh)
 # second relu
-conv2e = Convolution2D(units, (,), activation='relu')(maxpool1e)
+conv2Enh = Convolution2D(units, (,), activation='relu')(maxpool1Enh)
 # batch normalisation
-batnorm2e = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
+batnorm2Enh = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
                               moving_mean_initializer='zeros',
-                              moving_variance_initializer='ones')(conv2e)
+                              moving_variance_initializer='ones')(conv2Enh)
 # third relu
-conv3e = Convolution2D(units, (,), activation='relu')(batnorm2e)
+conv3Enh = Convolution2D(units, (,), activation='relu')(batnorm2Enh)
 # batch normalisation
-batnorm3e = BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001,
+batnorm3Enh = BatchNormalization(axis=axis=-1, momentum=0.99, epsilon=0.001,
                               center=True, scale=True,
                               beta_initializer='zeros',
                               gamma_initializer='ones',
                               moving_mean_initializer='zeros',
-                              moving_variance_initializer='ones')(conv3e)
+                              moving_variance_initializer='ones')(conv3Enh)
 # second maxpooling
-maxpool2e = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
-                         data_format=None)(batnorm3e)
+maxpool2Enh = MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid',
+                         data_format=None)(batnorm3Enh)
 # flattening the output (converting to one-dimensional after the Conv2D)
-outpute = Flatten()(maxpool2e)
+outputEnh = Flatten()(maxpool2Enh)
 
 
 # CONCATENATED MODEL
 
 # concatenating the two output layers
-concat = Concatenate([outputp, outpute], axis=-1)
+concat = Concatenate([outputProm, outputEnh], axis=-1)
 denseconcat = Dense(units, activation='relu')(concat)
 # dropout - 20% weights removed before softmax is applied
 dropout = Dropout(0.2, noise_shape=None, seed=None)(denseconcat)
-# applying softmax
+# applying softmax to give 'probability' they interact
 softmax = Dense(units, activation='softmax')(dropout)
 
 # this instantiates the merged model - concat is where it is first put together,
@@ -112,8 +118,6 @@ finalmodel.fit(x="training data", y="target data", batch_size=32, epochs=10,
                verbose=1, validation_split=0.15, validation_freq=1,
                initial_epoch=0)
 
-# EVALUATION - keeping batch size same as in .fit
+# EVALUATION - keeping batch size same as in .fit???
 accuracy = finalmodel.evaluate(X="test data", y="target data", batch_size=32, verbose=1, steps=)
 print("Accuracy: %.2f" % (accuracy*100))
-
-# PREDICT LAYER NEEDED?
